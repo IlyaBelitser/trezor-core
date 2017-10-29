@@ -62,6 +62,16 @@ jump_to:
   ldr r12, =0
   bx r0
 
+  .global clear_otg_hs_memory
+  .type clear_otg_hs_memory, STT_FUNC
+clear_otg_hs_memory:
+  // reference RM0090 section 35.12.1 Figure 413
+  .set USB_OTG_HS_PERIPH_BASE, 0x40040000
+  ldr r0, =USB_OTG_HS_PERIPH_BASE + 0x20000
+  ldr r1, =USB_OTG_HS_PERIPH_BASE + 0x20000 + 0x1000
+  ldr r2, =0
+  bx lr
+
   .global shutdown
   .type shutdown, STT_FUNC
 shutdown:
